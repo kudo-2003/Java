@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: run_main
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle_kotlin
+features: [app-name, data, data-jdbc, email-javamail, email-template, flyway, gdk-bom, gdk-license, gdk-oci-cloud-app, gdk-oci-database, gdk-oci-email, gdk-oci-k8s, gdk-oci-logging, gdk-oci-metrics, gdk-oci-objectstore, gdk-oci-sdk, gdk-oci-secretmanagement, gdk-oci-security, gdk-oci-streaming, gdk-oci-tracing, gradle, http-client, java, java-application, jdbc-hikari, jib, junit, kafka, kubernetes, kubernetes-client, logback, management, micrometer, micrometer-annotation, micrometer-oracle-cloud, micronaut-build, micronaut-http-validation, mysql, netty-server, object-storage-oracle-cloud, oracle-cloud-sdk, oracle-cloud-vault, properties, readme, security-annotations, security-jwt, security-oauth2, serialization-jackson, shade, static-resources, test-resources, validation, views-jte]

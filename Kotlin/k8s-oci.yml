@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "Kotlin-oci"
+spec:
+  selector:
+    matchLabels:
+      app: "Kotlin-oci"
+  template:
+    metadata:
+      labels:
+        app: "Kotlin-oci"
+    spec:
+      containers:
+        - name: "Kotlin-oci"
+          image: "<region-key>.ocir.io/<tenancy-namespace>/gdk-k8s/Kotlin-oci:latest"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+          env:
+          - name: MICRONAUT_ENVIRONMENTS
+            value: "oraclecloud"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "Kotlin-oci"
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "lb"
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "10"
+spec:
+  selector:
+    app: "Kotlin-oci"
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 8080
